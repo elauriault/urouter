@@ -163,7 +163,7 @@ fn try_urouter(ctx: XdpContext) -> Result<u32, ()> {
         ret = bpf_fib_lookup(
             ctx.as_ptr(),
             &mut fibparams,
-            mem::size_of::<bpf_fib_lookup> as i32,
+            (mem::size_of_val(&fibparams) as usize).try_into().unwrap(),
             0,
         )
         .try_into()
