@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-aya-ebpf = "0.1.0"
-aya-log-ebpf = "0.1.0"
-network-types = "0.0.5"
+aya-ebpf = "0.1.1"
+aya-log-ebpf = "0.1.1"
+network-types = "0.0.7"
 urouter-common = { path = "../urouter-common" }
 
 [[bin]]
