@@ -200,11 +200,6 @@ fn try_urouter(ctx: XdpContext) -> Result<u32, ()> {
     Ok(xdp_action::XDP_PASS)
 }
 
-#[panic_handler]
-fn panic(_info: &core::panic::PanicInfo) -> ! {
-    unsafe { core::hint::unreachable_unchecked() }
-}
-
 #[inline]
 pub unsafe fn decrease_ttl(ip: *mut Ipv4Hdr) -> u16 {
     let mut csum: u64 = !(*ip).check as u64;
@@ -217,4 +212,10 @@ pub unsafe fn decrease_ttl(ip: *mut Ipv4Hdr) -> u16 {
     csum = (csum & 0xffff) + (csum >> 16);
     (*ip).check = !(csum as u16);
     !(csum as u16)
+}
+
+#[cfg(not(test))]
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo) -> ! {
+    unsafe { core::hint::unreachable_unchecked() }
 }
